@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The SLP Toolkit</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,400&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <h1>SLP Toolkit</h1>
+        </div>
+        <nav>
+            <ul class="nav-links">
+                <li><a href="#dashboard">Home</a></li>
+                <li><a href="#decibel-meter">Decibel</a></li>
+                <li><a href="#timer">Timer</a></li>
+                <li><a href="#word-bank">Word Bank</a></li>
+                <li><a href="#reports">Reports</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section id="dashboard" class="tool-section active">
+            <h2>Welcome to The SLP Toolkit</h2>
+            <p>Select a tool from the navigation menu to begin your session.</p>
+        </section>
+
+        <section id="decibel-meter" class="tool-section hidden">
+            <h2>Decibel Meter</h2>
+            <div class="meter-display">
+                <p>Waiting for microphone access...</p>
+            </div>
+        </section>
+
+        <section id="word-bank" class="tool-section hidden">
+            <h2>Articulation Word Bank</h2>
+            <div class="search-container">
+                <input type="text" id="word-search" placeholder="Search phonemes (e.g., Initial /r/)...">
+                <button>Search</button>
+            </div>
+            <div class="word-grid" id="word-results">
+                <div class="word-card">Rabbit</div>
+                <div class="word-card">Ring</div>
+            </div>
+        </section>
+
+        <section id="reports" class="tool-section hidden">
+            <h2>Session Summary</h2>
+            <form id="session-form" class="report-form">
+                <div class="form-group">
+                    <label for="student-name">Student/Client Name:</label>
+                    <input type="text" id="student-name" required>
+                </div>
+                <div class="form-group">
+                    <label for="session-goals">Session Goals:</label>
+                    <textarea id="session-goals" rows="3" required></textarea>
+                </div>
+                <div class="form-group">
+                    <label for="session-notes">Clinical Notes:</label>
+                    <textarea id="session-notes" rows="5" required></textarea>
+                </div>
+                <button type="submit" class="btn-primary">Generate Report Summary</button>
+            </form>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 The SLP Toolkit</p>
+    </footer>
+
+</body>
+</html>
