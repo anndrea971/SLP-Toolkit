@@ -1,0 +1,39 @@
+{
+  "articulationWords": [
+    {
+      "word": "Rabbit",
+      "phoneme": "/r/",
+      "position": "Initial"
+    },
+    {
+      "word": "Carrot",
+      "phoneme": "/r/",
+      "position": "Medial"
+    },
+    {
+      "word": "Car",
+      "phoneme": "/r/",
+      "position": "Final"
+    },
+    {
+      "word": "Sun",
+      "phoneme": "/s/",
+      "position": "Initial"
+    },
+    {
+      "word": "Glasses",
+      "phoneme": "/s/",
+      "position": "Medial"
+    },
+    {
+      "word": "Bus",
+      "phoneme": "/s/",
+      "position": "Final"
+    },
+    {
+      "word": "Lion",
+      "phoneme": "/l/",
+      "position": "Initial"
+    }
+  ]
+}
