@@ -126,6 +126,7 @@ let wordData = [];
 async function loadWords() {
     try {
         const response = await fetch('words.json');
+        if (!response.ok) throw new Error('Could not fetch words.json');
         const data = await response.json();
         wordData = data.articulationWords;
         displayWords(wordData);
