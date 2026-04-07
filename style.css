@@ -111,6 +111,72 @@ h2 {
     font-family: 'Montserrat', sans-serif;
 }
 
+/* Timer Styling */
+.timer-container {
+    text-align: center;
+    padding: 2rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+    max-width: 400px;
+}
+
+#timer-display {
+    font-size: 3rem;
+    color: var(--accent-blue);
+    margin-bottom: 1rem;
+}
+
+.timer-controls {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+}
+
+/* Decibel Meter Visuals */
+.meter-display {
+    text-align: center;
+    padding: 2rem;
+    background: var(--light-gray);
+    border-radius: 8px;
+    max-width: 400px;
+}
+
+.dial-container {
+    position: relative;
+    width: 200px;
+    height: 100px;
+    margin: 0 auto 1rem auto;
+    overflow: hidden;
+    border-bottom: 4px solid var(--accent-blue);
+}
+
+.dial-background {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 20px solid #ccc;
+    position: absolute;
+    top: 0;
+    box-sizing: border-box;
+}
+
+.dial-needle {
+    width: 4px;
+    height: 90px;
+    background-color: var(--accent-teal);
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform-origin: bottom center;
+    transform: rotate(-90deg); /* Starts at 0 */
+    transition: transform 0.1s ease-out;
+}
+
+.db-readout {
+    font-size: 2.5rem;
+    color: var(--text-dark);
+}
+
 /* Report Form  */
 .report-form {
     background-color: var(--light-gray);
