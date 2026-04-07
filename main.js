@@ -80,7 +80,7 @@ document.getElementById('start-mic').addEventListener('click', async () => {
 
 updateMeter();
         document.getElementById('start-mic').style.display = 'none'; // Hide button after access
-    } catch (err) {
+    } catch (error) {
 console.error("Microphone access denied or error:", err);
         alert("Microphone access is required for the Decibel Meter to function.");
     }
@@ -129,7 +129,7 @@ async function loadWords() {
         const data = await response.json();
         wordData = data.articulationWords;
         displayWords(wordData);
-    } catch (error) { // Error handling
+    } catch (error) {
         console.error("Error loading word bank:", error);
     }
 }
