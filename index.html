@@ -35,10 +35,27 @@
         <section id="decibel-meter" class="tool-section hidden">
             <h2>Decibel Meter</h2>
             <div class="meter-display">
-                <p>Waiting for microphone access...</p>
-            </div>
+                <div class="dial-background"></div>
+                <div class="dial-needle" id="meter-needle"></div>
+        </div>
+        <h3 class="db-readout"><span id="db-level">0</span> dB</h3>
+        <p id="db-status">Quiet</p>
+    </div>
+    <button id="start-mic" class="btn-primary">Enable Microphone</button>
         </section>
 
+<section id="timer" class="tool-section hidden">
+    <h2>Clinical Timer</h2>
+    <div class="timer-container">
+        <h1 id="timer-display">00:00</h1>
+        <div class="timer-controls">
+            <button id="start-timer" class="btn-primary">Start</button>
+            <button id="pause-timer">Pause</button>
+            <button id="reset-timer">Reset</button>
+        </div>
+    </div>
+</section>
+        
         <section id="word-bank" class="tool-section hidden">
             <h2>Articulation Word Bank</h2>
             <div class="search-container">
