@@ -58,7 +58,7 @@ document.getElementById('start-mic').addEventListener('click', async () => {
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
         
-        function updateMeter() {
+               function updateMeter() {
             requestAnimationFrame(updateMeter);
             analyser.getByteFrequencyData(dataArray);
             
@@ -68,7 +68,7 @@ document.getElementById('start-mic').addEventListener('click', async () => {
             }
             let average = sum / bufferLength;
             
-    let degrees = (average * 1.8) - 90; 
+            let degrees = (average * 1.8) - 90; 
             if (degrees > 90) degrees = 90; // Cap it
             
             needle.style.transform = `rotate(${degrees}deg)`;
@@ -77,11 +77,12 @@ document.getElementById('start-mic').addEventListener('click', async () => {
             if (average < 30) dbStatus.innerText = "Quiet";
             else if (average < 65) dbStatus.innerText = "Normal";
             else dbStatus.innerText = "Loud";
+        }
 
-updateMeter();
-        document.getElementById('start-mic').style.display = 'none'; // Hide button after access
+        updateMeter();
+        document.getElementById('start-mic').style.display = 'none'; 
     } catch (error) {
-console.error("Microphone access denied or error:", err);
+        console.error("Microphone access denied or error:", error); // Fixed 'err' to 'error'
         alert("Microphone access is required for the Decibel Meter to function.");
     }
 });
