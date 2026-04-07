@@ -216,3 +216,27 @@ document.getElementById('copy-link-btn').addEventListener('click', () => {
 
 // Initialize app data
 loadWords();
+
+// ==========================================
+// 6. NAVIGATION MODULE: Tab Switching logic
+// ==========================================
+document.querySelectorAll('.nav-links a').forEach(link => {
+    link.addEventListener('click', function(e) {
+        e.preventDefault(); // Stop the default anchor jump
+        
+        // Hide all tool sections
+        document.querySelectorAll('.tool-section').forEach(section => {
+            section.classList.remove('active');
+            section.classList.add('hidden');
+        });
+        
+        // Show the target section based on the link's href
+        const targetId = this.getAttribute('href').substring(1); // removes the '#'
+        const targetSection = document.getElementById(targetId);
+        
+        if (targetSection) {
+            targetSection.classList.remove('hidden');
+            targetSection.classList.add('active');
+        }
+    });
+});
