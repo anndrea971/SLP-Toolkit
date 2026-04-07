@@ -3,6 +3,9 @@
 // ==========================================
 let timerInterval;
 let seconds = 0;
+let isRunning = false;
+
+const timerDisplay = document.getElementById('timer-display');
 
 function formatTime(sec) {
     const m = Math.floor(sec / 60).toString().padStart(2, '0');
@@ -10,13 +13,27 @@ function formatTime(sec) {
     return `${m}:${s}`;
 }
 
-// Example usage to bind to buttons you will add to the Timer section:
-// document.getElementById('start-timer').addEventListener('click', () => {
-//     timerInterval = setInterval(() => {
-//         seconds++;
-//         document.getElementById('timer-display').innerText = formatTime(seconds);
-//     }, 1000);
-// });
+document.getElementById('start-timer').addEventListener('click', () => {
+    if (!isRunning) {
+        isRunning = true;
+        timerInterval = setInterval(() => {
+            seconds++;
+            timerDisplay.innerText = formatTime(seconds);
+        }, 1000);
+    }
+});
+
+document.getElementById('pause-timer').addEventListener('click', () => {
+    isRunning = false;
+    clearInterval(timerInterval);
+});
+
+document.getElementById('reset-timer').addEventListener('click', () => {
+    isRunning = false;
+    clearInterval(timerInterval);
+    seconds = 0;
+    timerDisplay.innerText = "00:00";
+});
 
 // ==========================================
 // 2. UTILITY MODULE: Decibel Meter Logic
@@ -24,10 +41,22 @@ function formatTime(sec) {
 let audioContext;
 let analyser;
 let microphone;
+const needle = document.getElementById('meter-needle');
+const dbLevelDisplay = document.getElementById('db-level');
+const dbStatus = document.getElementById('db-status');
 
-async function startDecibelMeter() {
+document.getElementById('start-mic').addEventListener('click', async () => {
     try {
-        // Handling microphone permissions [cite: 61]
+        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+        audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        analyser = audioContext.createAnalyser();
+        microphone = audioContext.createMediaStreamSource(stream);
+        
+        microphone.connect(analyser);
+        analyser.fftSize = 256;
+
+document.getElementById('start-mic').addEventListener('click', async () => {
+    try {
         const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
         audioContext = new (window.AudioContext || window.webkitAudioContext)();
         analyser = audioContext.createAnalyser();
@@ -43,24 +72,63 @@ async function startDecibelMeter() {
             requestAnimationFrame(updateMeter);
             analyser.getByteFrequencyData(dataArray);
             
-            // Calculate average volume
             let sum = 0;
             for (let i = 0; i < bufferLength; i++) {
                 sum += dataArray[i];
             }
             let average = sum / bufferLength;
             
-            // In a full implementation, you'd map this 'average' to your UI
-            console.log(`Current DB Level (approx): ${average}`);
-        }
-        updateMeter();
-    } catch (err) { // Error handling
-        console.error("Microphone access denied or error:", err);
+    let degrees = (average * 1.8) - 90; 
+            if (degrees > 90) degrees = 90; // Cap it
+            
+            needle.style.transform = `rotate(${degrees}deg)`;
+            dbLevelDisplay.innerText = Math.round(average);
+
+            if (average < 30) dbStatus.innerText = "Quiet";
+            else if (average < 65) dbStatus.innerText = "Normal";
+            else dbStatus.innerText = "Loud";
+
+updateMeter();
+        document.getElementById('start-mic').style.display = 'none'; // Hide button after access
+    } catch (err) {
+console.error("Microphone access denied or error:", err);
+        alert("Microphone access is required for the Decibel Meter to function.");
+    }
+});
+        
+// ==========================================
+// 3. Square API (Commerce)
+// ==========================================
+
+async function generateSquareInvoice(clientName, amount) {
+    try {
+        // Mock payload pointing to a hypothetical backend endpoint
+        const response = await fetch('https://your-backend-url.com/api/create-invoice', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                client: clientName,
+                cost: amount,
+                currency: 'USD'
+            })
+        });
+
+        if (!response.ok) throw new Error('Square API Network response was not ok');
+        
+        const invoiceData = await response.json();
+        console.log("Invoice Generated:", invoiceData.invoice_id); // [cite: 56]
+        return invoiceData.payment_url; // Link for client [cite: 57]
+        
+    } catch (error) {
+        // Error Handling
+        console.error("Square API Error. The invoicing service might be down:", error);
+        return null;
     }
 }
-
 // ==========================================
-// 3. DATA MANAGEMENT: Word Bank Search & Filter
+// 4. DATA MANAGEMENT: Word Bank Search & Filter
 // ==========================================
 let wordData = [];
 
@@ -105,7 +173,7 @@ document.getElementById('search-btn').addEventListener('click', filterWords);
 document.getElementById('position-filter').addEventListener('change', filterWords);
 
 // ==========================================
-// 4. API MODULE: TinyURL & Local Storage
+// 5 API MODULE: TinyURL & Local Storage
 // ==========================================
 const sessionForm = document.getElementById('session-form');
 
