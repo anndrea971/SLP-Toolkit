@@ -54,16 +54,6 @@ document.getElementById('start-mic').addEventListener('click', async () => {
         
         microphone.connect(analyser);
         analyser.fftSize = 256;
-
-document.getElementById('start-mic').addEventListener('click', async () => {
-    try {
-        const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-        audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        analyser = audioContext.createAnalyser();
-        microphone = audioContext.createMediaStreamSource(stream);
-        
-        microphone.connect(analyser);
-        analyser.fftSize = 256;
         
         const bufferLength = analyser.frequencyBinCount;
         const dataArray = new Uint8Array(bufferLength);
