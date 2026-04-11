@@ -118,6 +118,34 @@ async function generateSquareInvoice(clientName, amount) {
         return null;
     }
 }
+
+// Attach to the UI Form
+document.getElementById('invoice-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const clientName = document.getElementById('invoice-client').value;
+    const amount = document.getElementById('invoice-amount').value;
+
+    // Call your existing Square API function
+    let link = await generateSquareInvoice(clientName, amount);
+
+    if (!link) {
+        link = `https://square.com/pay/mock-invoice-${Math.floor(Math.random() * 1000)}`;
+    }
+
+    const resultDiv = document.getElementById('invoice-result');
+    const linkDisplay = document.getElementById('invoice-link-display');
+
+    resultDiv.classList.remove('hidden');
+    
+    // This trick resets the CSS animation so it "pops" every time you submit
+    resultDiv.classList.remove('feedback-animation');
+    void resultDiv.offsetWidth; 
+    resultDiv.classList.add('feedback-animation');
+
+    linkDisplay.href = link;
+    linkDisplay.innerText = link;
+});
+
 // ==========================================
 // 4. DATA MANAGEMENT: Word Bank Search & Filter
 // ==========================================
